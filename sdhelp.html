@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><!DOCTYPE html>
+<html lang="en">
+<head>
+<style>
+
+</style>
+    <meta charset="UTF-8">
+      <title>Calculator</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet" href="https://www.w3schools.com/lib/w3.css">
+	  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+	  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	
+</head>
+<body style="margin:0px; background:#082D45
+;">
+<div style="float:right">
+<form align="right" name="form1" method="post" action="form1.html">
+  <label class="logoutLblPos">
+  <input name="submit2" type="submit" id="submit2" value="Login">
+  </label>
+</form>
+</div>
+<div style="float:left">
+<form align="right" name="form1" method="post" action="589.html">
+  <label class="logoutLblPos">
+  <input name="submit2" type="submit" id="submit2" value="Contact">
+  </label>
+</form>
+</div>
+<div style="float:left">
+<form align="right" name="form1" method="post" action="About.html">
+  <label class="logoutLblPos">
+  <input name="submit2" type="submit" id="submit2" value="About">
+  </label>
+</form>
+</div>
+
+    <table cellpadding="10px;" cellspacing="0" style="font:30px Calibri; width:100%;">
+        <tr>
+            <td colspan="2" style="background-color:#082D45
+;">
+<h1 style="font-size:30px; margin:1px ; color:orange; ">Robot Crawler Website
+				      <a href = "876g6.html" target = "_self"> <center><img src="Capture.png"></center> </a>
+				<center><h1 style= "color:orange;"> Calculator </h1><center>
+            </td>
+        </tr>
+        <tr style="height:300px;">
+		
+            <td style="background-color:#bbd2df; width:20%; vertical-align:top;">
+                <ul style="list-style:none; padding:0px; margin:0px;font-size:18px;">
+				      <nav class="sidenav w3-orange " style="width:100%" "height:20%">
+ 
+  					<a href="hyderabad.html">Hyderabad</a>
+                    <li style="margin-bottom:5px;"><a href="#" style="color:#3d677e;"> </a></li>
+					<a href="Vizag.html">Vizag</a>					
+                    <li style="margin-bottom:5px;"><a href="#" style="color:#3d677e;"> </a></li>
+				    <a href="Vijayawada.html">Vijayawada</a>
+                    <li style="margin-bottom:5px;"><a href="#" style="color:#3d677e;"> </a></li>					
+					<a href="Mathura.html">Mathura</a>
+                    <li style="margin-bottom:5px;"><a href="#" style="color:#3d677e;"> </a></li>
+					<a href="Panipat.html">Panipat</a>					
+                    <li style="margin-bottom:5px;"><a href="#" style="color:#3d677e;"> </a></li>
+				    <a href="Dehradun.html">Dehradun</a>						
+                    <li style="margin-bottom:5px;"><a href="#" style="color:#3d677e;"> </a></li>
+				    <a href="Batinda.html">Batinda</a>						
+                    <li style="margin-bottom:5px;"><a href="#" style="color:#3d677e;"> </a></li>
+					<a href="Jamnagar.html">Jamnagar</a>						
+                    <li style="margin-bottom:5px;"><a href="#" style="color:#3d677e;"> </a></li>
+					</nav>								
+                </ul>
+            </td>
+			
+            <td style="background-color:#f0f0f0; width:80%; vertical-align:top;vertical-align:top;">
+                <h2 style="font-size:16px; margin:0px;">
+				   <body > 
+
+      <nav class="w3-topnav w3-orange">
+         <a href=" 876g6.html">Home</a>
+		 <a href=" new 6.html">Articles</a>
+         <a href="sdhelp.html">Calculator</a>
+         <a href="maps.html">Map</a>
+         <a href="form1.html">Login</a>
+		 		 <a href="iiiiiiiii.html">Distance calculator map</a>
+				 				  <a href="589.html">Contact</a>
+      </nav>
+	  </body>
+	  				<h2> <marquee>Welcome to our site</marquee></h2>
+                
+                <p>
+ <input type="text" id="robots" placeholder="no of robots" name="num1" />
+    <input type="text" id="r" placeholder="distance(km)" name="r1">
+	<input type="button" value="Solve" onclick=" calc()">
+	<p>Weeks required are -</p>
+    <p id="result" name="r1">
+<br />
+</p>
+<div id="test2"></div>
+<script type="text/javascript">
+
+   function calc() {
+
+var D = "0";
+var A = document.getElementById("robots").value;
+var B = document.getElementById("r").value;
+
+        D = (parseFloat(B)/(parseFloat(A)*0.1*168));    
+		document.getElementById("result").innerHTML = D+"Weeks";
+		return false;
+        }
+   </script>
+   
+   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+
+<!-- Replace with your own Google Maps API key! -->
+<script src="http://maps.google.com/maps?file=api&v=2&key=AIzaSyA9kMASRkOAbPFdzd4u5o_F0JyXKieOSQk" type="text/javascript"></script>
+<script type="text/javascript">
+//Initialize location vars 
+var location1;
+var location2;
+$(document).ready(function() {
+  console.log('test');
+  initialize();
+  
+  //Grab the address values from the form on submit, and then run the maps code
+  $('#map-form').submit(function(event) {
+      //Also, stop the form from actually submitting
+      event.preventDefault();
+      address1 = $('#address1').val();
+      address2 = $('#address2').val();
+      //Run it, baby!
+      showLocation();
+  });
+});
+var geocoder, location1, location2;
+function initialize() {
+  //Create new object of the google maps api
+  geocoder = new GClientGeocoder();
+}
+function showLocation() {
+  geocoder.getLocations(address1, function (response) {
+    if (!response || response.Status.code != 200)
+    {
+      alert("Sorry, we were unable to geocode address 1");
+    }
+    else
+    {
+      location1 = {lat: response.Placemark[0].Point.coordinates[1], lon: response.Placemark[0].Point.coordinates[0], address: response.Placemark[0].address};
+      geocoder.getLocations(address2, function (response) {
+        if (!response || response.Status.code != 200)
+        {
+          alert("Sorry, we were unable to geocode address 2");
+        }
+        else
+        {
+          location2 = {lat: response.Placemark[0].Point.coordinates[1], lon: response.Placemark[0].Point.coordinates[0], address: response.Placemark[0].address};
+          calculateDistance();
+        }
+      });
+    }
+  });
+}
+function calculateDistance()
+{
+  try
+  {
+    var glatlng1 = new GLatLng(location1.lat, location1.lon);
+    var glatlng2 = new GLatLng(location2.lat, location2.lon);
+    var miledistance = glatlng1.distanceFrom(glatlng2, 3959).toFixed(1);
+    var kmdistance = (miledistance * 1.609344).toFixed(1);
+    //Write the value wherever you want!
+    $('#mile_distance').html(miledistance);
+  }
+  catch (error)
+  {
+    alert(error);
+  }
+}
+</script>
+
+<form id="map-form">
+  <input type="text" placeholder="Address 1" id="address1" />
+  <input type="text" placeholder="Address 2" id="address2" />
+  <input type="submit" value="Submit" />
+</form>
+<p>The distance is: <span id="mile_distance">?</span> miles.</p>
+<td style="background-color:#bbd2df; width:30%; ">
+                <ul style="list-style:none; padding:0px; margin:0px;">
+                    <li style="margin-bottom:5px;"><a href="#" style="color:#3d677e;"> </a></li>
+					<a href="https://www.facebook.com/shivam.singhal.752487"><img src="fb.jpg" height="40px" width="40px"></a></a>
+                    <li style="margin-bottom:5px;"><a href="#" style="color:#3d677e;"> </a></li>
+					<a href="https://plus.google.com/u/1/102658682416211095129"><img src="download.png" height="40px" width="40px"></a>					
+                    <li style="margin-bottom:5px;"><a href="#" style="color:#3d677e;"> </a></li>
+				    <a href="https://twitter.com/Shivam336Shivam"><img src="download3.png" height="40px" width="40px"></a>						
+                    <li style="margin-bottom:5px;"><a href="#" style="color:#3d677e;"> </a></li>
+					<a href="https://www.linkedin.com/in/shivam-singhal-360295152/"><img src="download2.png" height="40px" width="40px"></a></a>					
+                </ul>
+            </td>
+</td>
+</tr>
+
+        <tr>
+            <td colspan="2" style="background-color:#082D45;">
+                <p style="text-align:center; margin:0.5px;color:orange;font-size:12px;">Copyright &copy; ACE Computer Enterprises</p>
+            </td>
+
+
+
+
+        </tr>
+</table>
+</body>
+</html>
