@@ -1,0 +1,322 @@
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+
+import javafx.application.Application;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.geometry.Insets;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableCell;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableColumn.CellEditEvent;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.stage.Stage;
+import javafx.util.Callback;
+
+public class TabeViewMain extends Application {
+
+	private TableView<DataModelUnits> unitsTable = new TableView<DataModelUnits>();
+	private final ObservableList<DataModelUnits> unitsData =
+			FXCollections.observableArrayList(
+					new DataModelUnits("R1", "149,600,000", "0.005","km"),
+					new DataModelUnits("R2", "227,920,000", "0.005","km"),
+					new DataModelUnits("GM", "1.327 x 10^11", "0.05","km^3/s^2"),
+					new DataModelUnits("π", "3.14", "0.0005"," ")
+					);
+	final HBox hb = new HBox();
+
+	public static void main(String[] args) {
+		launch(args);
+	}
+
+	@Override
+	public void start(Stage stage) {
+		Scene scene = new Scene(new Group());
+		stage.setTitle("Calculator Units By Shivam Singhal");
+		stage.setWidth(500);
+		stage.setHeight(550);
+
+		final Label label = new Label("Hohmann Transfer Units");
+		label.setFont(new Font("Arial", 20));
+
+		unitsTable.setEditable(true);
+		Callback<TableColumn, TableCell> cellFactory = new Callback<TableColumn, TableCell>() {
+			
+			public TableCell call(TableColumn p) {
+				return new EditingCell();
+			}
+		};
+
+		TableColumn firstNameCol = new TableColumn("Variable");
+		firstNameCol.setMinWidth(100);
+		firstNameCol.setCellValueFactory(
+				new PropertyValueFactory<DataModelUnits, String>("firstName"));
+		firstNameCol.setCellFactory(cellFactory);
+		firstNameCol.setOnEditCommit(new EventHandler<CellEditEvent<DataModelUnits, String>>() {
+					@Override
+					public void handle(CellEditEvent<DataModelUnits, String> t) {
+						((DataModelUnits) t.getTableView().getItems().get(
+								t.getTablePosition().getRow())
+								).setFirstName(t.getNewValue());
+					}
+				}
+				);	
+
+
+
+
+		TableColumn lastCol = new TableColumn("Value");
+
+		TableColumn lastNameCol = new TableColumn("Measured");
+		lastNameCol.setMinWidth(100);
+		lastNameCol.setCellValueFactory(new PropertyValueFactory<DataModelUnits, String>("lastName"));
+		lastNameCol.setCellFactory(cellFactory);
+		lastNameCol.setOnEditCommit(new EventHandler<CellEditEvent<DataModelUnits, String>>() {
+					@Override
+					public void handle(CellEditEvent<DataModelUnits, String> t) {
+						((DataModelUnits) t.getTableView().getItems().get(
+								t.getTablePosition().getRow())
+								).setLastName(t.getNewValue());
+					}
+				}
+				);
+
+
+
+		TableColumn lastNameColl = new TableColumn("Error");
+		lastNameColl.setMinWidth(100);
+		lastNameColl.setCellValueFactory(new PropertyValueFactory<DataModelUnits, String>("lastNamee"));
+		lastNameColl.setCellFactory(cellFactory);
+		lastNameColl.setOnEditCommit(new EventHandler<CellEditEvent<DataModelUnits, String>>() {
+					@Override
+					public void handle(CellEditEvent<DataModelUnits, String> t) {
+						((DataModelUnits) t.getTableView().getItems().get(
+								t.getTablePosition().getRow())
+								).setLastNamee(t.getNewValue());
+					}
+				}
+				);
+
+
+		TableColumn emailCol = new TableColumn("Unit");
+		emailCol.setMinWidth(100);
+		emailCol.setCellValueFactory(new PropertyValueFactory<DataModelUnits, String>("email"));
+		emailCol.setCellFactory(cellFactory);
+		emailCol.setOnEditCommit(new EventHandler<CellEditEvent<DataModelUnits, String>>() {
+					@Override
+					public void handle(CellEditEvent<DataModelUnits, String> t) {
+						((DataModelUnits) t.getTableView().getItems().get(
+								t.getTablePosition().getRow())
+								).setEmail(t.getNewValue());
+					}
+				}
+				);
+
+		unitsTable.setItems(unitsData);
+		lastCol.getColumns().addAll(lastNameCol,lastNameColl);
+		unitsTable.getColumns().addAll(firstNameCol, lastCol, emailCol);
+
+		final TextField addFirstName = new TextField();
+		addFirstName.setPromptText("Variable");
+		addFirstName.setMaxWidth(firstNameCol.getPrefWidth());
+		final TextField addLastName = new TextField();
+		addLastName.setMaxWidth(lastNameCol.getPrefWidth());
+		addLastName.setPromptText("Measured");
+		final TextField addEmail = new TextField();
+		addEmail.setMaxWidth(lastNameColl.getPrefWidth());
+		addEmail.setPromptText("Unit");
+
+		final TextField addEmaill = new TextField();
+		addEmaill.setMaxWidth(emailCol.getPrefWidth());
+		addEmaill.setPromptText("Error");
+
+		final Button addButton = new Button("Add");
+		addButton.setDisable(true);
+		if(addFirstName.getText() == "" && addLastName.getText() == "" && addEmaill.getText() == "" && addEmail.getText() == "") {
+			addButton.setDisable(true);
+		}
+		else {
+			addButton.setDisable(false);
+		addButton.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent e) {
+				unitsData.add(new DataModelUnits(
+						addFirstName.getText(),
+						addLastName.getText(),
+						addEmaill.getText(),
+						addEmail.getText()));
+				addFirstName.clear();
+				addLastName.clear();
+				addEmail.clear();
+				addEmaill.clear();
+			}
+		});
+		}
+		final Button addFile = new Button("Add to File");
+		addFile.setOnAction(new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent e) {
+				File file = new File("C:\\Users\\Shivam\\Desktop\\Text.txt");;
+				ObservableList<DataModelUnits> observablelistsss =unitsData;
+
+				try {
+					BufferedWriter outWriter = new BufferedWriter(new FileWriter(file));
+					for(DataModelUnits DataModelUnits: observablelistsss) {
+						outWriter.write(DataModelUnits.toString());
+						outWriter.newLine();
+					}
+					System.out.println(observablelistsss.toString());
+					outWriter.close();
+				}
+				catch(Exception ee) {
+				}
+			}
+			
+		});
+
+		hb.getChildren().addAll(addFirstName, addLastName, addEmaill,addEmail, addButton,addFile);
+		hb.setSpacing(3);
+
+		final VBox vbox = new VBox();
+		vbox.setSpacing(5);
+		vbox.setPadding(new Insets(10, 0, 0, 10));
+		vbox.getChildren().addAll(label, unitsTable,hb);
+
+		((Group) scene.getRoot()).getChildren().addAll(vbox);
+
+		stage.setScene(scene);
+		stage.show();
+	}
+
+	public static class DataModelUnits {
+
+		private final SimpleStringProperty variable;
+		private final SimpleStringProperty lastName;
+		private final SimpleStringProperty email;
+		private final SimpleStringProperty lastNamee;
+
+		private DataModelUnits(String fName, String lName, String llName, String email) {
+			this.variable = new SimpleStringProperty(fName);
+			this.lastName = new SimpleStringProperty(lName);
+			this.lastNamee = new SimpleStringProperty(llName);
+			this.email = new SimpleStringProperty(email);
+		}
+
+		public String getFirstName() {
+			return variable.get();
+		}
+
+		public void setFirstName(String fName) {
+			variable.set(fName);
+		}
+
+		public String getLastName() {
+			return lastName.get();
+		}
+
+		public void setLastName(String fName) {
+			lastName.set(fName);
+		}
+
+
+		public String getLastNamee() {
+			return lastNamee.get();
+		}
+
+		public void setLastNamee(String fName) {
+			lastNamee.set(fName);
+		}
+
+
+		public String getEmail() {
+			return email.get();
+		}
+
+		public void setEmail(String fName) {
+			email.set(fName);
+		}
+
+		public String toString() {
+			return "Variable: " + getFirstName() + " |  Measured Value: " + getLastName() + " |  Error Value: " + getLastNamee() + " |  Unit: " + getEmail();
+		}
+	}
+	class EditingCell extends TableCell<DataModelUnits, String> {
+
+		private TextField textField;
+
+		public EditingCell() {
+		}
+
+		@Override
+		public void startEdit() {
+			if (!isEmpty()) {
+				super.startEdit();
+				createTextField();
+				setText(null);
+				setGraphic(textField);
+				textField.selectAll();
+			}
+		}
+
+		@Override
+		public void cancelEdit() {
+			super.cancelEdit();
+
+			setText((String) getItem());
+			setGraphic(null);
+		}
+
+		@Override
+		public void updateItem(String item, boolean empty) {
+			super.updateItem(item, empty);
+
+			if (empty) {
+				setText(null);
+				setGraphic(null);
+			} else {
+				if (isEditing()) {
+					if (textField != null) {
+						textField.setText(getString());
+					}
+					setText(null);
+					setGraphic(textField);
+				} else {
+					setText(getString());
+					setGraphic(null);
+				}
+			}
+		}
+
+		private void createTextField() {
+			textField = new TextField(getString());
+			textField.setMinWidth(this.getWidth() - this.getGraphicTextGap()* 2);
+			textField.focusedProperty().addListener(new ChangeListener<Boolean>(){
+				@Override
+				public void changed(ObservableValue<? extends Boolean> arg0, 
+						Boolean arg1, Boolean arg2) {
+					if (!arg2) {
+						commitEdit(textField.getText());
+					}
+				}
+			});
+		}
+
+		private String getString() {
+			return getItem() == null ? "" : getItem().toString();
+		}
+	}
+} 
